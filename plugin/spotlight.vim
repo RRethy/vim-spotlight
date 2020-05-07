@@ -36,3 +36,18 @@ endf
 fun! s:complete_apps(arglead, cmdline, cursorpos) abort
     return join(map(split(system(s:list_apps_cmd)), 'fnamemodify(v:val, ":t")'), "\n")
 endf
+
+fun! FloatingFZF()
+    let width = float2nr(&columns * 0.5)
+    let height = float2nr(&lines * 0.3)
+    let opts = {
+                \     'relative': 'editor',
+                \     'row': (&lines - height) / 5,
+                \     'col': (&columns - width) / 2,
+                \     'width': width,
+                \     'height': height,
+                \     'style': 'minimal'
+                \ }
+
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+endf
